@@ -21,6 +21,10 @@ const config: Config = {
         titleColor: "#9FACBA",
         addColor: "rgba(255, 255, 255, 0.239)",
         hoverAddColor: "rgba(255, 255, 255, 0.11)",
+        cardBlack: "#101204",
+        cardBackGround: "#22272B",
+        cardTextColor: "#B6C2CF",
+        cardHoverColor: "#99c8ff",
       },
       width: {
         "272": "272px",
