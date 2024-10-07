@@ -25,6 +25,7 @@ const config: Config = {
         cardBackGround: "#22272B",
         cardTextColor: "#B6C2CF",
         cardHoverColor: "#99c8ff",
+        addCardColor: "#579DFF",
       },
       width: {
         "272": "272px",

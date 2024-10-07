@@ -1,9 +1,11 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Card from "../Card/Card";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { DragItem, DropItem, DropResult } from "@/app/types/dragDropTypes";
+import { useOnClickOutside } from "@/app/utils/customHook";
 import AddIcon from "@mui/icons-material/Add";
+import ClearIcon from "@mui/icons-material/Clear";
 
 function DnD() {
   const items: DropItem[] = [
@@ -40,10 +42,11 @@ function DnD() {
       ],
     },
   ];
+  const addCardRef = useRef<HTMLTextAreaElement>(null);
+  const addRef = useRef<HTMLDivElement>(null);
   const [dropItems, setDropItems] = useState<DropItem[]>([]);
-  useEffect(() => {
-    setDropItems(items);
-  }, []);
+  const [addCardIng, setAddCardIng] = useState<number>(0);
+
   const onDragEnd = (result: any) => {
     const { source, destination, type } = result;
     const copyDropItems = JSON.parse(JSON.stringify(dropItems));
@@ -84,8 +87,21 @@ function DnD() {
       );
     }
     setDropItems(copyDropItems);
-    console.log("result", result);
   };
+
+  useOnClickOutside(addRef, () => {
+    setAddCardIng(0);
+  });
+
+  useEffect(() => {
+    setDropItems(items);
+  }, []);
+
+  useEffect(() => {
+    if (addCardIng !== 0) {
+      addCardRef?.current?.focus();
+    }
+  }, [addCardIng]);
 
   return (
     <>
@@ -147,10 +163,35 @@ function DnD() {
                               )
                             )}
                             {provided.placeholder}
-                            <div className="add_card flex items-center text-white text-sm gap-x-1.5 py-1.5 pl-2 pr-3 cursor-pointer hover:bg-hoverAddColor rounded-lg">
-                              <AddIcon sx={{ width: "20px", height: "20px" }} />
-                              <p>新增卡片</p>
-                            </div>
+                            {addCardIng === Number(dropItem?.id) ? (
+                              <div ref={addRef}>
+                                <textarea
+                                  ref={addCardRef}
+                                  placeholder="為這張卡片輸入名稱..."
+                                  className="py-2 px-3 text-sm rounded-lg bg-cardBackGround text-cardTextColor border-none outline-none resize-none w-full"
+                                />
+                                <div className="flex items-center gap-x-1.5">
+                                  <button className="bg-addCardColor rounded px-3 leading-8 text-sm">
+                                    新增卡片
+                                  </button>
+                                  <div className="flex items-center justify-center w-8 h-8  hover:bg-hoverAddColor rounded cursor-pointer">
+                                    <ClearIcon
+                                      sx={{ color: "white", fontSize: "22px" }}
+                                    />
+                                  </div>
+                                </div>
+                              </div>
+                            ) : (
+                              <div
+                                className="add_card flex items-center text-white text-sm gap-x-1.5 py-1.5 pl-2 pr-3 cursor-pointer hover:bg-hoverAddColor rounded-lg"
+                                onClick={() => setAddCardIng(dropItem?.id)}
+                              >
+                                <AddIcon
+                                  sx={{ width: "20px", height: "20px" }}
+                                />
+                                <p>新增卡片</p>
+                              </div>
+                            )}
                           </div>
                         )}
                       </Droppable>
