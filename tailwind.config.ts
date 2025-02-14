@@ -8,32 +8,33 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
+      backgroundImage: ({ theme }) => ({
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
-        workBackGround:
-          "url('https://telegraph-image-8s5.pages.dev/file/4663037a5eb61f927f57a.jpg')",
-      },
+        workBg: "url('/images/Colorado Night Sky.jpg')",
+      }),
       colors: {
-        customBlack: "#1D2125",
-        customBlue: "#172B4D",
-        titleColor: "#9FACBA",
-        addColor: "rgba(255, 255, 255, 0.239)",
-        hoverAddColor: "rgba(255, 255, 255, 0.11)",
-        cardBlack: "#101204",
-        cardBackGround: "#22272B",
-        cardTextColor: "#B6C2CF",
-        cardHoverColor: "#99c8ff",
-        addCardColor: "#579DFF",
+        custom: {
+          black: "#1D2125",
+          customBlue: "#172B4D",
+          title: "#9FACBA",
+          add: "rgba(255, 255, 255, 0.239)",
+          hoverAdd: "rgba(255, 255, 255, 0.11)",
+          card: "#101204",
+          cardBg: "#22272B",
+          cardText: "#B6C2CF",
+          cardHover: "#99c8ff",
+          addCard: "#579DFF",
+        },
       },
-      width: {
+      spacing: {
         "272": "272px",
       },
       height: {
         "48": "48px",
         "44": "44px",
-        workHeight: "calc(100vh - 48px)",
+        work: "calc(100vh - 48px)",
       },
     },
   },

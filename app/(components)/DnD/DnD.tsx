@@ -2,46 +2,14 @@
 import React, { useEffect, useRef, useState } from "react";
 import Card from "../Card/Card";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import { DragItem, DropItem, DropResult } from "@/app/types/dragDropTypes";
+import { DropItem } from "@/app/types/dragDropTypes";
 import { useOnClickOutside } from "@/app/utils/customHook";
 import AddIcon from "@mui/icons-material/Add";
 import ClearIcon from "@mui/icons-material/Clear";
-
-function DnD() {
-  const items: DropItem[] = [
-    {
-      id: 3,
-      dropID: "dropA",
-      dragItems: [
-        {
-          id: 11,
-          text: "10/01-10/27Trello和github的連線中斷",
-        },
-        {
-          id: 22,
-          text: "10/02-10/27Trello和github的連線中斷",
-        },
-      ],
-    },
-    {
-      id: 4,
-      dropID: "dropB",
-      dragItems: [
-        {
-          id: 33,
-          text: "10/03-10/27Trello和github的連線中斷",
-        },
-        {
-          id: 44,
-          text: "10/04-10/27Trello和github的連線中斷",
-        },
-        {
-          id: 55,
-          text: "10/05-10/27Trello和github的連線中斷",
-        },
-      ],
-    },
-  ];
+interface DnDProps {
+  items: DropItem[];
+}
+function DnD({ items }: DnDProps) {
   const addCardRef = useRef<HTMLTextAreaElement>(null);
   const addRef = useRef<HTMLDivElement>(null);
   const [dropItems, setDropItems] = useState<DropItem[]>([]);
@@ -95,7 +63,7 @@ function DnD() {
 
   useEffect(() => {
     setDropItems(items);
-  }, []);
+  }, [items]);
 
   useEffect(() => {
     if (addCardIng !== 0) {
@@ -125,7 +93,7 @@ function DnD() {
                 >
                   {(provided, snapshot) => (
                     <div
-                      className="w-272 bg-cardBlack h-fit px-2  py-2 rounded-xl select-none"
+                      className="w-272 bg-custom-card h-fit px-2  py-2 rounded-xl select-none"
                       {...provided.draggableProps}
                       {...provided.dragHandleProps}
                       ref={provided.innerRef}
@@ -168,13 +136,16 @@ function DnD() {
                                 <textarea
                                   ref={addCardRef}
                                   placeholder="為這張卡片輸入名稱..."
-                                  className="py-2 px-3 text-sm rounded-lg bg-cardBackGround text-cardTextColor border-none outline-none resize-none w-full"
+                                  className="py-2 px-3 text-sm rounded-lg bg-custom-cardBg text-custom-cardText border-2 border-transparent outline-none resize-none w-full focus:border-custom-cardHover"
                                 />
                                 <div className="flex items-center gap-x-1.5">
-                                  <button className="bg-addCardColor rounded px-3 leading-8 text-sm">
+                                  <button className="bg-custom-addCard rounded px-3 leading-8 text-sm">
                                     新增卡片
                                   </button>
-                                  <div className="flex items-center justify-center w-8 h-8  hover:bg-hoverAddColor rounded cursor-pointer">
+                                  <div
+                                    className="flex items-center justify-center w-8 h-8  hover:bg-custom-hoverAdd rounded cursor-pointer"
+                                    onClick={() => setAddCardIng(0)}
+                                  >
                                     <ClearIcon
                                       sx={{ color: "white", fontSize: "22px" }}
                                     />
@@ -183,7 +154,7 @@ function DnD() {
                               </div>
                             ) : (
                               <div
-                                className="add_card flex items-center text-white text-sm gap-x-1.5 py-1.5 pl-2 pr-3 cursor-pointer hover:bg-hoverAddColor rounded-lg"
+                                className="add_card flex items-center text-white text-sm gap-x-1.5 py-1.5 pl-2 pr-3 cursor-pointer hover:bg-custom-hoverAdd rounded-lg"
                                 onClick={() => setAddCardIng(dropItem?.id)}
                               >
                                 <AddIcon
