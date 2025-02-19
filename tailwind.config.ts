@@ -26,6 +26,7 @@ const config: Config = {
           cardText: "#B6C2CF",
           cardHover: "#99c8ff",
           addCard: "#579DFF",
+          dialogBg: "#323940",
         },
       },
       spacing: {
