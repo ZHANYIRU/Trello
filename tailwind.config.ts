@@ -27,6 +27,7 @@ const config: Config = {
           cardHover: "#99c8ff",
           addCard: "#579DFF",
           dialogBg: "#323940",
+          fnBtnBg: "#3b444c",
         },
       },
       spacing: {
