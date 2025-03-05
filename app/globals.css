@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.btn {
+  @apply rounded px-3 py-1.5 text-sm flex justify-center items-center hover:brightness-[1.1];
+}

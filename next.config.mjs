@@ -8,6 +8,9 @@ const nextConfig = {
     });
     return config;
   },
+  images: {
+    domains: ["trello-members.s3.amazonaws.com"], // 允許載入該域名的圖片
+  },
 };
 
 export default nextConfig;

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useOnClickOutside } from "@/app/utils/customHook";
 import AddIcon from "@mui/icons-material/Add";
 import ClearIcon from "@mui/icons-material/Clear";
+import CustomButton from "@/app/(components)/CustomButton/CustomButton";
 
 function AddList() {
   const cardListRef = useRef<HTMLDivElement>(null);
@@ -32,9 +33,7 @@ function AddList() {
           className="py-1 px-3 text-sm rounded-md bg-custom-cardBg  text-custom-cardText border-2 border-transparent  outline-none  w-full focus:border-custom-cardHover"
         />
         <div className="flex items-center gap-x-1.5">
-          <button className="bg-custom-addCard rounded px-3 leading-8 text-sm">
-            新增列表
-          </button>
+          <CustomButton className="bg-custom-addCard">新增列表</CustomButton>
           <div
             className="flex items-center justify-center w-8 h-8  hover:bg-custom-hoverAdd rounded cursor-pointer"
             onClick={() => setAddCardListIng(false)}
